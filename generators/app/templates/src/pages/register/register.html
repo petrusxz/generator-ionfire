@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list padding>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+
+      <ion-item no-padding>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="email" maxLength="50" (ionBlur)="validateFields()"></ion-input>
+      </ion-item>
+
+      <!-- Errors Messages -->
+      <ion-note color="danger" *ngIf="signUpForm.get('email').hasError('pattern') && signUpForm.pending">
+        Email invalid.
+      </ion-note>
+      <ion-note color="danger" *ngIf="signUpForm.get('email').hasError('required') && signUpForm.get('email').touched && signUpForm.pending">
+        Email is required.
+      </ion-note>
+
+      <ion-item no-padding>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="password" maxLength="26" (ionBlur)="validateFields()"></ion-input>
+      </ion-item>
+
+      <!-- Errors Messages -->
+      <ion-note color="danger" *ngIf="signUpForm.get('password').hasError('minlength') && signUpForm.pending">
+        Password must have at least 6 characters.
+      </ion-note>
+      <ion-note color="danger" *ngIf="signUpForm.get('password').hasError('required') && signUpForm.get('password').touched && signUpForm.pending">
+        Password is required.
+      </ion-note>
+      
+      <ion-item no-padding>
+        <ion-label floating>Password Confirmation</ion-label>
+        <ion-input type="password" formControlName="passwordConfirmation" maxLength="26" (ionBlur)="validateFields()"></ion-input>
+      </ion-item>
+
+      <!-- Errors Messages -->
+      <ion-note color="danger" *ngIf="signUpForm.hasError('nomatch') && !signUpForm.get('passwordConfirmation').hasError('required') && signUpForm.pending">
+        Password doesn't match.
+      </ion-note>
+      <ion-note color="danger" *ngIf="signUpForm.get('passwordConfirmation').hasError('required') && signUpForm.get('passwordConfirmation').touched && signUpForm.pending">
+        Password is required.
+      </ion-note>
+
+      <button ion-item no-lines block margin-top type="submit" color="primary">Sign Up</button>
+
+    </form>
+
+  </ion-list>
+
+</ion-content>

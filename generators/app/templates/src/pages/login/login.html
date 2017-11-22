@@ -1,0 +1,56 @@
+<ion-content>
+
+  <h1 text-center><%= projectName %></h1>
+
+  <ion-list padding>
+
+    <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+
+      <ion-item no-padding>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="email" maxLength="50" (ionBlur)="validateFields()"></ion-input>
+      </ion-item>
+
+      <!-- Errors Messages -->
+      <ion-note color="danger" *ngIf="signInForm.get('email').hasError('pattern') && signInForm.pending">
+        Email invalid.
+      </ion-note>
+      <ion-note color="danger" *ngIf="signInForm.get('email').hasError('required') && signInForm.get('email').touched && signInForm.pending">
+        Email is required.
+      </ion-note>
+
+      <ion-item no-padding>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="password" maxLength="26" (ionBlur)="validateFields()"></ion-input>
+      </ion-item>
+
+      <!-- Errors Messages -->
+      <ion-note color="danger" *ngIf="signInForm.get('password').hasError('minlength') && signInForm.pending">
+        Password must have at least 6 characters.
+      </ion-note>
+      <ion-note color="danger" *ngIf="signInForm.get('password').hasError('required') && signInForm.get('password').touched && signInForm.pending">
+        Password is required.
+      </ion-note>
+
+      <button ion-item no-lines block margin-top type="submit" color="primary">Sign In</button>
+
+    </form>
+
+  </ion-list>
+
+  <ion-row justify-content-between padding-horizontal>
+    <ion-col col-5 no-padding>
+      <button ion-item no-padding no-lines color="light">
+        <img src="assets/imgs/google-icon.png" item-start>Google</button>
+    </ion-col>
+    <ion-col col-5 no-padding>
+      <button ion-item no-padding no-lines color="facebook">
+        <img src="assets/imgs/facebook-icon.png" item-start>Facebook</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row justify-content-end>
+    <button ion-button margin-top clear navPush="RegisterPage">Sign Up</button>
+  </ion-row>
+
+</ion-content>
