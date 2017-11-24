@@ -6,6 +6,32 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ion-row align-items-center>
+    <ion-spinner name="crescent" color="primary" *ngIf="!(items | async)"></ion-spinner>
+  </ion-row>
+
+  <p text-center *ngIf="(items | async) == 0">Empty list.</p>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items | async" navPush="ItemPage" navParams="{ item: item }">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img [src]="item.picture ? item.picture : 'assets/imgs/thumbnail.svg'">
+        </ion-thumbnail>
+        <h2>item.name</h2>
+        <p>item.creationDate</p>
+        <ion-note>item.size</ion-note>
+      </ion-item>
+
+      <ion-item-options>
+        <button ion-button color="primary">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+
+import { ItemModel } from '../../models/item.model';
 
 @IonicPage()
 @Component({
@@ -8,11 +12,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  private itemCollection: AngularFirestoreCollection<ItemModel>;
+  items: Observable<ItemModel[]>;
+
+  constructor(public navCtrl: NavController, private afs: AngularFirestore) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    this.itemCollection = this.afs.collection<ItemModel>('items');
+    this.items = this.itemCollection.valueChanges();
   }
 
 }

@@ -75,6 +75,9 @@ module.exports = class extends Generator {
       "./src/app/main.ts",
       "./src/assets/icon/favicon.ico",
       "./src/assets/imgs/logo.png",
+      "./src/assets/imgs/facebook-icon.png",
+      "./src/assets/imgs/google-icon.png",
+      "./src/assets/imgs/thumbnail.svg",
       "./src/pages/home/home.html",
       "./src/pages/home/home.module.ts",
       "./src/pages/home/home.scss",
@@ -106,6 +109,7 @@ module.exports = class extends Generator {
       "./ionic.config.json",
       "./package-lock.json",
       "./package.json",
+      "./config.xml"
     ];
 
     var i;

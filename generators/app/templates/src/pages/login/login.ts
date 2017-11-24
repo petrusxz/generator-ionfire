@@ -5,8 +5,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 
-// import { GooglePlus } from '@ionic-native/google-plus';
-// import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook';
 
 import { LoadingService } from '../../services/loading.service';
 import { ToastService } from '../../services/toast.service';
@@ -23,10 +23,10 @@ export class LoginPage {
   private signInForm: FormGroup;
   private user: UserModel;
 
-  // private GOOGLE_WEB_CLIENT_ID: string = '<%= googleWebClientId %>';
+  private GOOGLE_WEB_CLIENT_ID: string = '<%= googleWebClientId %>';
 
   constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private afAuth: AngularFireAuth,
-    private toastService: ToastService, private loadingService: LoadingService) {
+    private toastService: ToastService, private loadingService: LoadingService, private googlePlus: GooglePlus, private facebook: Facebook) {
     this.validationForm();
   }
 
@@ -77,35 +77,35 @@ export class LoginPage {
       });
   }
 
-  // signInWithGoogle(): void {
-  //   this.googlePlus.login({
-  //     'webClientId': this.GOOGLE_WEB_CLIENT_ID
-  //   })
-  //     .then(googleUser => {
-  //       this.firebaseExternalAuth(firebase.auth.GoogleAuthProvider.credential(googleUser.idToken));
-  //     })
-  //     .catch(error => {
-  //       console.error("Error: ", error)
-  //     });
-  // }
+  signInWithGoogle(): void {
+    this.googlePlus.login({
+      'webClientId': this.GOOGLE_WEB_CLIENT_ID
+    })
+      .then(googleUser => {
+        this.firebaseExternalAuth(firebase.auth.GoogleAuthProvider.credential(googleUser.idToken));
+      })
+      .catch(error => {
+        console.error("Error: ", error)
+      });
+  }
 
-  // signInWithFacebook(): void {
-  //   this.facebook.login(['email'])
-  //     .then(facebookUser => {
-  //       this.firebaseExternalAuth(firebase.auth.FacebookAuthProvider.credential(facebookUser.authResponse.accessToken));
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     });
-  // }
+  signInWithFacebook(): void {
+    this.facebook.login(['email'])
+      .then(facebookUser => {
+        this.firebaseExternalAuth(firebase.auth.FacebookAuthProvider.credential(facebookUser.authResponse.accessToken));
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
 
-  // firebaseExternalAuth(token: any) {
-  //   this.afAuth.auth.signInWithCredential(token)
-  //     .then(success => {
-  //       this.navCtrl.setRoot('FeedPage');
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
+  firebaseExternalAuth(token: any) {
+    this.afAuth.auth.signInWithCredential(token)
+      .then(success => {
+        this.navCtrl.setRoot('FeedPage');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 }
