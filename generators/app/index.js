@@ -9,7 +9,7 @@ module.exports = class extends Generator {
   prompting() {
 
     this.log(yosay(
-      'Welcome to the simple ' + chalk.red('ionfire') + ' generator!'
+      'Welcome to the simple ' + chalk.bgGreen('ionfire') + ' generator!'
     ));
 
     var prompts = [{
@@ -140,7 +140,6 @@ module.exports = class extends Generator {
       "./src/manifest.json",
       "./src/service-worker.js",
       "./.editorconfig",
-      "./.gitignore",
       "./tsconfig.json",
       "./tslint.json",
     ];
@@ -163,6 +162,8 @@ module.exports = class extends Generator {
     for (i = 0; i < toCopyTpl.length; i++) {
       this.fs.copyTpl(this.templatePath(toCopyTpl[i]), this.destinationPath(toCopyTpl[i]), this.props);
     }
+
+    this.fs.copy(this.templatePath('./__gitignore'), this.destinationPath('./.gitignore'));
   }
 
   install() {

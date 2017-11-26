@@ -24,13 +24,13 @@ npm install -g cordova ionic
 
 ## Requirements
 
-Before we get started with our template generation, make sure to create your project on [Firebase] (https://console.firebase.google.com/u/0/) and add the platforms for the app authentication.
+Before we get started with our template generation, make sure to create your project on [Firebase](https://console.firebase.google.com/u/0/) and add the platforms for the app authentication.
 
 Remember to activate the authentication methods (Email/Password, Google and Facebook).
 
 You'll also have to activate the Cloud Firestore in the Database tab to be able to run the app.
 
-Consult the [Firebase Documentation] (https://firebase.google.com/docs/), just in case.
+Consult the [Firebase Documentation](https://firebase.google.com/docs/), just in case.
 
 ## Getting Started with your ionfire Project
 
