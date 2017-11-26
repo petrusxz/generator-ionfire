@@ -40,7 +40,7 @@ After the install all the requirements, you now can run your project:
 ionic serve
 ```
 
-To test the native stuff on the project as the Google and Facebook authentication, run the following commands:
+To test the native stuff on the project as the Google and Facebook authentication, run the following commands with your device connected:
 
 ```bash
 ionic cordova add platform android ios
