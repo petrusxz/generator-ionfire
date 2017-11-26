@@ -5,13 +5,9 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = class extends Generator {
-  constructor(args, opts) {
-    super(args, opts);
-  }
 
-  //Ask for user input
   prompting() {
-    // Have Yeoman greet the user.
+
     this.log(yosay(
       'Welcome to the simple ' + chalk.red('ionfire') + ' generator!'
     ));
@@ -30,7 +26,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'packageName',
-        message: 'Your package name? (ex: com.companyname.appname)'
+        message: 'Your package name? (ex: com.companyname.appname)',
+        validate: function(str) {
+          const regex = new RegExp(
+            '^(?:@[a-z0-9-~][a-z0-9-._~]*/)?[a-z0-9-~][a-z0-9-._~]*$'
+          );
+          return Boolean(str) && regex.test(str);
+        }        
       },
       {
         type: 'input',
@@ -49,6 +51,11 @@ module.exports = class extends Generator {
       },
       {
         type: 'input',
+        name: 'projectId',
+        message: 'Your Firebase Project ID?'
+      },
+      {
+        type: 'input',
         name: 'storageBucket',
         message: 'Your Firebase Storage Bucket?'
       },
@@ -56,14 +63,47 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'messagingSenderId',
         message: 'Your Firebase Messaging Sender Id?'
+      },
+      {
+        type: 'input',
+        name: 'facebookAppId',
+        message: 'Your Facebook App ID?'
+      },
+      {
+        type: 'input',
+        name: 'facebookAppName',
+        message: 'Your Facebook App name?'
+      },
+      {
+        type: 'input',
+        name: 'googleReversedId',
+        message: 'Your Google Reversed ID? (iOS)'
+      },
+      {
+        type: 'input',
+        name: 'googleWebClientId',
+        message: 'Your Google Web Client ID?'
+      },
+      {
+        type: 'confirm',
+        name: 'initGit',
+        default: true,
+        message: 'Would you like to initialize a git repo here?'
       }
     ];
 
     return this.prompt(prompts)
       .then(function (props) {
-        // To access props later use this.props.someAnswer;
         this.props = props;
       }.bind(this));
+  }
+
+  configuring() {
+    if (this.props.initGit) {
+      this.composeWith(require.resolve('generator-git-init'), {
+        commit: 'Initial commit by generator-ionfire'
+      });
+    }
   }
 
   writing() {
@@ -78,6 +118,10 @@ module.exports = class extends Generator {
       "./src/assets/imgs/facebook-icon.png",
       "./src/assets/imgs/google-icon.png",
       "./src/assets/imgs/thumbnail.svg",
+      "./src/models/item.model.ts",
+      "./src/models/user.model.ts",
+      "./src/services/loading.service.ts",
+      "./src/services/toast.service.ts",
       "./src/pages/home/home.html",
       "./src/pages/home/home.module.ts",
       "./src/pages/home/home.scss",
@@ -88,7 +132,6 @@ module.exports = class extends Generator {
       "./src/pages/item/item.ts",
       "./src/pages/login/login.module.ts",
       "./src/pages/login/login.scss",
-      "./src/pages/login/login.ts",
       "./src/pages/register/register.html",
       "./src/pages/register/register.module.ts",
       "./src/pages/register/register.scss",
@@ -101,10 +144,11 @@ module.exports = class extends Generator {
       "./tsconfig.json",
       "./tslint.json",
     ];
-
+    
     var toCopyTpl = [
       "./src/app/app.firebase.config.ts",
       "./src/pages/login/login.html",
+      "./src/pages/login/login.ts",
       "./src/index.html",
       "./ionic.config.json",
       "./package-lock.json",

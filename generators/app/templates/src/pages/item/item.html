@@ -1,38 +1,39 @@
 <ion-header>
-
-  <ion-navbar color="primary">
-    <ion-title>Item</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-<ion-content>
-
-  <div margin-vertical class="avatar">
-    <img [src]="item.picture ? item.picture : 'assets/imgs/thumbnail.svg'">
-    <ion-fab top center>
-      <button ion-fab mini (click)="takePicture()">
-        <ion-icon name="ios-camera"></ion-icon>
-      </button>
-    </ion-fab>
-  </div>
-
-  <ion-list no-margin no-lines>
-
-    <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="item.name"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Size</ion-label>
-      <ion-input type="tel" [(ngModel)]="item.size"></ion-input>
-    </ion-item>
-
-  </ion-list>
-
-  <div margin-top padding-horizontal>
-    <button ion-button block color="primary" (click)="addItem(item)">Save</button>
-  </div>
-
-</ion-content>
+  
+    <ion-navbar color="primary">
+      <ion-title>Item</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content>
+  
+    <div margin-vertical class="avatar">
+      <img [src]="item.picture ? item.picture : 'assets/imgs/thumbnail.svg'">
+      <ion-fab top center>
+        <button ion-fab mini color="light" (click)="takePicture()">
+          <ion-icon name="ios-camera"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+  
+    <ion-list no-margin>
+  
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="item.name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label floating>Size</ion-label>
+        <ion-input type="tel" [(ngModel)]="item.size"></ion-input>
+      </ion-item>
+  
+    </ion-list>
+  
+    <div margin-top padding-horizontal>
+      <button ion-button block color="primary" (click)="saveItem(item)">Save</button>
+    </div>
+  
+  </ion-content>
+  

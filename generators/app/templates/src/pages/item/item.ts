@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { ItemModel } from '../../models/item.model';
-import { Observable } from 'rxjs/Observable';
+
+import { ToastService } from '../../services/toast.service';
+import { LoadingService } from '../../services/loading.service';
 
 @IonicPage()
 @Component({
@@ -14,13 +16,19 @@ import { Observable } from 'rxjs/Observable';
 export class ItemPage {
 
   private item: ItemModel = new ItemModel;
+  private itemsCollection: AngularFirestoreCollection<ItemModel>;
   private itemDoc: AngularFirestoreDocument<ItemModel>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afs: AngularFirestore, private camera: Camera) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private afs: AngularFirestore, private camera: Camera,
+    private toastService: ToastService, private loadingService: LoadingService) {
   }
 
   ionViewDidLoad(): void {
-    this.item = this.navParams.get('item');
+    const selectedItem = this.navParams.get('item');
+
+    console.log(selectedItem);
+    if(selectedItem)
+      this.item = selectedItem;
   }
 
   takePicture(): void {
@@ -43,12 +51,24 @@ export class ItemPage {
   }
 
   saveItem(item: ItemModel): void {
+    this.loadingService.presentLoading();
+    
     if (!item.id) {
       this.item.id = this.afs.createId();
-      const itemCollection = this.afs.collection<ItemModel>('items');
-      itemCollection.add(this.item);
+      this.item.creationDate = new Date();
+      this.itemsCollection = this.afs.collection<ItemModel>('items');
+      this.itemsCollection.doc(this.item.id).set(Object.assign({}, this.item))
+        .then(() => {
+          this.toastService.presentToast('Item added.');
+          this.loadingService.dissmissLoading();
+          this.navCtrl.pop();
+        });
     } else {
-      this.itemDoc.update(this.item);
+      this.itemDoc = this.afs.doc<ItemModel>(`items/${this.item.id}`);
+      this.itemDoc.update(Object.assign({}, this.item));
+      this.toastService.presentToast('Item updated.');
+      this.loadingService.dissmissLoading();
+      this.navCtrl.pop();
     }
   }
 

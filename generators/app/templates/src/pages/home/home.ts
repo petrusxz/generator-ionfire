@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 import { ItemModel } from '../../models/item.model';
@@ -13,6 +13,7 @@ import { ItemModel } from '../../models/item.model';
 export class HomePage {
 
   private itemCollection: AngularFirestoreCollection<ItemModel>;
+  private itemDoc: AngularFirestoreDocument<ItemModel>;
   items: Observable<ItemModel[]>;
 
   constructor(public navCtrl: NavController, private afs: AngularFirestore) { }
@@ -20,6 +21,11 @@ export class HomePage {
   ionViewDidLoad() {
     this.itemCollection = this.afs.collection<ItemModel>('items');
     this.items = this.itemCollection.valueChanges();
+  }
+
+  deleteItem(item: ItemModel) {
+    this.itemDoc = this.afs.doc<ItemModel>(`items/${item.id}`);
+    this.itemDoc.delete();
   }
 
 }
