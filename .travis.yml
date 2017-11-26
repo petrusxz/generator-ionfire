@@ -1,5 +1,10 @@
 language: node_js
 node_js:
-  - 8
-  - 7
-  - 6
+- 8
+- 7
+- 6
+deploy:
+  provider: npm
+  email: petrusxz@gmail.com
+  api_key:
+    secure: rkmi14Sgq94G0Dk+Am7IhWGyq1NYXhwS//AA3YULYO3K2uwzsVhJdoDIQFmiOOCMFRYy0wjlXaGXM87AHAGnE3rqznUnpj2jksG3Gqx8ELjDRdBbJv69ALtINfoejskAF99Ksr57WaIj5cYTtv8Xc5nxl8NkNTLTH6x7wPhNXEK2SQeuUKFkJ3ZXloiA2hHH0IypE7Vw6gzLd435zMBjurCJqjCyAql1IN86gflRQvHV43ncSkQuA/no2eBWepzvyHk5j9VDAPg+lGjkCT4jD6vdjlfSQ6U5bhIZmOjRuDBpVm/IqlDyHOKiFpyJbD5OHGnZsc6Wj2FWgl/yUrsI9AVoMFCOro35QztlWYNcQgDVMOwHo4RAkDv+PQKNuzZR7tEl7MwULWSuasuXic3e5rm3THxwQrCr0ACXijHG2yYMi1FxYMM5dGdaR8KnLyr+L6AQeQzgaVLKAX3/lF3kczvMz0eAPkHSzG/28N95uR0+Z3vuIG6NQ37ePSn0XTE0SSBDTHRiXu6oyEt62xG/21PnrZJu0s7Qut2AiF2Q5+vYnmXq2lFXTvIO44LJP4e1GcF/Sj2iOsNXh1LouWeT8/NqTN6NJrFEygyFa9NG5HF4q2+c/bZHm0zUSj8kHPwCUXlJxjpAfKogoMtw9M8CgAmgpDFurBuqQ4NJcOpKi8g=
