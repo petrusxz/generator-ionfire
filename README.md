@@ -32,9 +32,9 @@ You'll also have to activate the Cloud Firestore in the Database tab to be able 
 
 Consult the [Firebase Documentation](https://firebase.google.com/docs/), just in case.
 
-## Getting Started with your ionfire Project
+## Getting Started with your Ionfire Project
 
-After the install all the requirements, you now can run your project:
+After the installation of all the requirements, you now can run your project:
 
 ```bash
 ionic serve

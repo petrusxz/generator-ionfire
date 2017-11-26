@@ -15,8 +15,13 @@ module.exports = class extends Generator {
     var prompts = [{
         type: 'input',
         name: 'name',
-        message: 'Project name?',
-        default: this.appname // Default to current folder name
+        message: 'Project name? (no spaces)',
+        default: this.appname,
+        validate: function(str) {
+          const regex = new RegExp("[\\s]");
+
+          return Boolean(str) && !regex.test(str);
+        }        
       },
       {
         type: 'input',
